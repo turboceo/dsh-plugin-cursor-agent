@@ -43,6 +43,13 @@ dsh-plugin-cursor-agent/     # 标准 DSH 组合包（bundle）
 
 > 说明：`styles.css` 与 `watchdog.js` 均在每次页面渲染时从磁盘重新读取，因此修改后刷新页面即生效；`todo.js` 作为独立插件行存在，避免宿主对主插件 `index.js` 的 ESM 模块缓存导致脚本更新不生效。
 
+## 📚 官方参考资料
+
+- 官方仓库(Everything is a Plugin):[github.com/deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)
+- 插件市场用户指南:[docs/user/guide/plugin-market.md](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/guide/plugin-market.md)(组合包/bundle 与 Git、npm 安装源)
+- 扩展插件形态手册:[docs/cookbook/extension-cookbook.md](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/cookbook/extension-cookbook.md)
+- 组合包判定(源码):`packages/boot/plugin-manager/src/index.ts` 的 `inspectionOf()` —— `dsh` 存在且 `dsh.bundle` 为非空对象即视为组合包
+
 ## 🔌 安装与配置
 
 本包是一个标准 **DSH 组合包（bundle）**：`package.json` 声明了 `"dsh": { "bundle": { "patch": "./cordis.patch.yml" } }`，可以由 DeepSeek Harness 插件管理直接安装、启用、卸载与升级。
