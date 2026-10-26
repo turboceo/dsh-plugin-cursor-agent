@@ -1,21 +1,32 @@
 # 迁移指南：将插件复制到其它机器
 
-本插件是**纯静态文件 + 一行 YAML 挂载**,没有安装器、没有二进制依赖,迁移只需要两步:**拷贝文件夹** + **在目标机 patch 文件里加挂载条目**。
+本插件是一个**标准 DSH 组合包(bundle)**:`package.json` 声明了 `"dsh": { "bundle": { "patch": "./cordis.patch.yml" } }`。迁移只有两步:**让目标机拿到这份代码** + **用插件管理安装它**。
 
 ---
 
-## 第一步:拷贝插件文件夹
+## 方式 A：插件管理页安装（推荐，无需命令行）
 
-把整个 `dsh-plugin-cursor-agent/` 目录(含 `lib/`、`package.json`、`README.md`)复制到目标机任意位置。
+目标机打开 DeepSeek Harness → **插件** 页面 → **添加插件**，输入以下任一地址：
+
+- GitHub 仓库：`https://github.com/turboceo/dsh-plugin-cursor-agent`
+- 或本地目录：`/你的/绝对路径/dsh-plugin-cursor-agent`
+
+点击安装后**完全退出并重新打开 DeepSeek Harness** 即可生效。插件页可停用/卸载/更新该组合包；显示的名称、描述与图标来自包内 `locale/` 和 `icon.svg`。
+
+---
+
+## 方式 B：整包拷贝 + 手动挂载（不依赖插件页的兜底方式）
+
+### 第一步:拷贝插件文件夹
+
+把整个 `dsh-plugin-cursor-agent/` 目录(含 `lib/`、`locale/`、`icon.svg`、`cordis.patch.yml`、`package.json`、`README.md`)复制到目标机任意位置。
 
 > 推荐放到与本机相同的位置,可省去改路径:
 > `/Users/<用户名>/Documents/deepseek-harness/default-workspace/dsh-plugin-cursor-agent`
 
 文件权限已统一为 `644`(所有用户可读),不受机器/用户差异影响。
 
----
-
-## 第二步:在目标机上挂载(核心)
+### 第二步:在目标机上挂载(核心)
 
 在目标机编辑用户级配置文件:
 
@@ -39,9 +50,7 @@
 >
 > 若目标机该文件里已有内容(设置项、模型列表等),只新增 **insert** 部分,不要动其它行;设置界面改配置会往后追加行,不会删掉 insert。
 
----
-
-## 第三步:生效
+### 第三步:生效
 
 1. 完全退出并重新打开 DeepSeek Harness(插件在应用启动时加载;CSS 改动刷新页面即可,换机后首次必须重启应用以注册新插件);
 2. 打开任意对话页面,输入区上方应出现自动展开的米黄色 TODO 清单卡片;

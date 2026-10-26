@@ -1,27 +1,38 @@
 {
   "name": "dsh-plugin-cursor-agent",
-  "version": "1.0.0",
-  "description": "Cursor Agent light style and YanTi calligraphy font plugin for DeepSeek Harness",
+  "version": "1.1.0",
+  "description": "Cursor Agent light theme, YanTi calligraphy chat font and a pinned Todo checklist for the DeepSeek Harness web chat.",
+  "private": true,
   "type": "module",
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",
-    "./styles.css": "./lib/styles.css"
+    "./todo": "./lib/todo.js",
+    "./styles.css": "./lib/styles.css",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
   },
+  "files": [
+    "lib",
+    "locale",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md",
+    "MIGRATION.md"
+  ],
   "dsh": {
-    "plugin": {
-      "id": "cursor-agent-theme",
-      "name": "Cursor Agent 亮色风格与颜体字体插件",
-      "version": "1.0.0"
+    "bundle": {
+      "patch": "./cordis.patch.yml"
     }
   },
   "keywords": [
     "deepseek-harness",
     "dsh-plugin",
+    "dsh-bundle",
     "theme",
     "cursor-agent",
     "yanti"
   ],
-  "author": "Turbo",
+  "author": "turboceo",
   "license": "MIT"
 }

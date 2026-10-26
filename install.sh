@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # ============================================================================
-# dsh-plugin-cursor-agent — 一键安装脚本
+# dsh-plugin-cursor-agent — 一键安装脚本(兜底方式)
+#
+# 本包已是标准 DSH 组合包(bundle),推荐直接用插件管理页安装:
+#   插件 → 添加插件 → 输入 GitHub 地址或本地目录路径 → 安装 → 重启
+# 本脚本仅供不想走插件页的场景使用(直接给 cordis.patch.yml 加挂载)。
+#
 # 用法:
 #   bash install.sh             # 安装(幂等,可重复执行)
 #   bash install.sh --uninstall # 卸载(移除两个挂载条目)

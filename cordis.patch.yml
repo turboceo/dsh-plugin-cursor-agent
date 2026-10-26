@@ -1,0 +1,8 @@
+# dsh-plugin-cursor-agent — bundle patch
+# 声明两个插件行：主插件（主题/字体/样式注入）与 todo 插件（TODO 面板自动展开）。
+# 包内行通过 `name` 按包名解析（本包安装到 profile 后由 node_modules 解析），无需绝对路径。
+- insert:
+    - id: dsh-plugin-cursor-agent
+      name: 'dsh-plugin-cursor-agent'
+    - id: dsh-plugin-cursor-agent-todo
+      name: 'dsh-plugin-cursor-agent/todo'

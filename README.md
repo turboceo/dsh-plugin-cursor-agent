@@ -26,21 +26,38 @@
 ## 📁 目录结构
 
 ```text
-dsh-plugin-cursor-agent/
-├── package.json        # 插件元信息与导出声明
-├── README.md           # 插件说明文档
+dsh-plugin-cursor-agent/     # 标准 DSH 组合包（bundle）
+├── package.json        # 清单：声明 dsh.bundle.patch（组合包）与导出子路径
+├── cordis.patch.yml    # 组合包的 patch：按包名声明两个插件行
+├── locale/             # 插件商店展示元信息（meta.title / meta.description）
+│   ├── en.json
+│   └── zh.json
+├── icon.svg            # 插件商店图标
+├── README.md / MIGRATION.md
 └── lib/
     ├── index.js        # 主插件入口（注入 Cursor 样式 + 读盘 watchdog）
     ├── styles.css      # Cursor Agent 样式层与颜体样式表
     ├── watchdog.js     # 客户端脚本：保证样式优先级 + 自动展开并固定 TODO 清单
-    └── todo.js         # 独立入口：以新模块 URL 绕过宿主模块缓存，实时注入 watchdog
+    └── todo.js         # 独立插件行（子路径导出 ./todo）：以新模块 URL 绕过宿主模块缓存
 ```
 
-> 说明：`styles.css` 与 `watchdog.js` 均在每次页面渲染时从磁盘重新读取，因此修改后刷新页面即生效；`todo.js` 作为独立入口存在，避免宿主对主插件 `index.js` 的 ESM 模块缓存导致脚本更新不生效。
+> 说明：`styles.css` 与 `watchdog.js` 均在每次页面渲染时从磁盘重新读取，因此修改后刷新页面即生效；`todo.js` 作为独立插件行存在，避免宿主对主插件 `index.js` 的 ESM 模块缓存导致脚本更新不生效。
 
 ## 🔌 安装与配置
 
-### 方式一：一键脚本（推荐）
+本包是一个标准 **DSH 组合包（bundle）**：`package.json` 声明了 `"dsh": { "bundle": { "patch": "./cordis.patch.yml" } }`，可以由 DeepSeek Harness 插件管理直接安装、启用、卸载与升级。
+
+### 方式一：插件管理页安装（推荐）
+
+1. 打开 DeepSeek Harness → **插件** 页面 → **添加插件**（Add plugin）；
+2. 输入以下任一地址：
+   - GitHub 仓库：`https://github.com/turboceo/dsh-plugin-cursor-agent`
+   - 或本地目录路径：`/你本机的绝对路径/dsh-plugin-cursor-agent`
+3. 点击安装；安装完成后**完全退出并重新打开 DeepSeek Harness**（首次安装必须在启动时注册插件）。
+
+安装后插件页会显示组合包详情（名称/描述/图标来自 `locale/` 与 `icon.svg`），并可随时停用/卸载。
+
+### 方式二：GitHub 命令行 + 一键脚本（兜底，不依赖组合包注册）
 
 ```bash
 git clone https://github.com/turboceo/dsh-plugin-cursor-agent.git
@@ -54,25 +71,9 @@ bash install.sh
 
 卸载：`bash install.sh --uninstall`（同样需要重启应用生效）。
 
-### 方式二：手动挂载
-
-在 DSH 的用户配置文件（`~/.dsh/profiles/desktop/cordis.patch.yml`）顶部挂载本插件（路径改为你本机实际路径）：
-
-```yaml
-- insert:
-    - id: dsh-plugin-cursor-agent
-      name: "/你本机的绝对路径/dsh-plugin-cursor-agent/lib/index.js"
-    - id: dsh-plugin-cursor-agent-todo
-      name: "/你本机的绝对路径/dsh-plugin-cursor-agent/lib/todo.js"
-```
-
-保存配置文件后，重启 DeepSeek Harness（CSS 类改动后续刷新页面即生效）。
+> 若先在插件页安装过本包，又用脚本方式挂载，会出现相同插件 id 的两组行；插件页安装后请不要再运行 `install.sh`。
 
 ### 升级
 
-```bash
-cd dsh-plugin-cursor-agent
-git pull
-```
-
-升级后无需重装：`styles.css` / `watchdog.js` 每次渲染读盘，刷新页面即生效；若 `index.js` / `todo.js` 有更新，重启一次应用即可。更多细节见 `MIGRATION.md`。
+- 插件页安装：在插件页对组合包执行更新（或卸载后重装）。
+- 脚本方式：`cd dsh-plugin-cursor-agent && git pull`，重启一次应用即可；纯 CSS 改动刷新页面即生效。更多细节见 `MIGRATION.md`。

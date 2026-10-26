@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Cursor Agent light theme">
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#faf6ec" stroke="#d9c9a3" stroke-width="3"/>
+  <circle cx="32" cy="32" r="20" fill="#c9a227"/>
+  <path d="M23 33.5l6.2 6.2L42.5 26" fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
