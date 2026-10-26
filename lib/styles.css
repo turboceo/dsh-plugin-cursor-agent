@@ -1,0 +1,582 @@
+/* ==========================================================================
+   DeepSeek Harness Plugin: Cursor Agent Theme & YanTi Typography
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+  --dsw-corner-shape: round;
+  --dsh-chat-content-width: 860px !important; /* 拓宽内容区，匹配 Cursor 桌面 IDE 大气布局 */
+
+  /* 颜体书法字族栈（涵盖所有中文颜体、方正颜体、汉仪颜体以及 macOS 系统内置硬朗粗楷书） */
+  --cursor-yanti-font: "华文颜体", "STYan", "方正颜宋简体", "FZYanSong-Z02",
+                       "方正颜体简体", "FZYanTi-M03S", "汉仪颜楷简", "HYYanKaiW",
+                       "颜体", "YanTi", "Weibei SC", "WeibeiSC-Bold", "魏碑-简",
+                       "魏碑-简 粗体", "STKaitiSC-Bold", "STKaitiSC-Black",
+                       "Kaiti SC Bold", "楷体-简 粗体", "楷体-简 黑体",
+                       "STXingkaiSC-Bold", "Xingkai SC Bold", "行楷-简 粗体",
+                       "行楷-简", "华文楷体", "STKaiti", "Kaiti SC", "楷体-简",
+                       "KaiTi", "楷体", serif;
+
+  /* Cursor 专业等宽编程字体 */
+  --cursor-code-font: "SF Mono", Consolas, "JetBrains Mono", Monaco, Menlo,
+                      "Liberation Mono", Courier, monospace;
+}
+
+/* 本地书法字体优先映射 */
+@font-face {
+  font-family: "YanTiCustom";
+  src: local("华文颜体"), local("STYan"),
+       local("方正颜宋简体"), local("FZYanSong-Z02"),
+       local("汉仪颜楷简"), local("HYYanKaiW"),
+       local("颜体"), local("YanTi"),
+       local("Weibei SC"), local("WeibeiSC-Bold"), local("魏碑-简"),
+       local("STKaitiSC-Bold"), local("STKaitiSC-Black"), local("楷体-简 粗体"),
+       local("Kaiti SC"), local("STKaiti"), local("KaiTi");
+  font-display: swap;
+}
+
+/* ==========================================================================
+   1. Cursor Light 全局色彩与 DeepSeek 原版品牌色置换
+   ========================================================================== */
+body,
+body:not([data-ds-dark-theme]),
+body[data-ds-dark-theme="false"] {
+  /* 基础画布与背景 */
+  --dsw-alias-bg-base: #ffffff !important;
+  --dsw-alias-bg-layer-1: #ffffff !important;
+  --dsw-alias-bg-layer-2: #fafafa !important;
+  --dsw-alias-bg-layer-3: #f4f4f5 !important;
+  --dsw-alias-bg-module-platform: #f4f4f5 !important;
+  --dsw-specific-sidebar-fill: #f8f9fa !important;
+  --dsw-specific-input-major: #ffffff !important;
+
+  /* DeepSeek 专有蓝色全面置换为 Cursor 品牌灰阶与 Cursor 蓝 */
+  --dsw-static-deepseek-50: #f4f4f5 !important;   /* 原版淡蓝气泡底色 -> Cursor 冷灰色卡片 */
+  --dsw-static-deepseek-100: #e5f0ff !important;
+  --dsw-static-deepseek-200: #dbeafe !important;
+  --dsw-static-deepseek-300: #93c5fd !important;
+  --dsw-static-deepseek-400: #2563eb !important;
+  --dsw-static-deepseek-450: #0066cc !important;
+  --dsw-static-deepseek-500: #0969da !important;  /* 原版深蓝 -> Cursor 品牌标志蓝 */
+
+  /* 气泡与卡片底色（Cursor 中性冷灰底色，彻底告别原版淡蓝气泡） */
+  --dsw-specific-bubble: #f4f4f5 !important;
+  --dsw-specific-bubble-highlight: #e4e4e7 !important;
+  --dsw-alias-turn-trigger-bg: #f4f4f5 !important;
+  --dsw-alias-turn-trigger-bg-hover: #e4e4e7 !important;
+
+  /* Cursor 精致微边框 */
+  --dsw-alias-border-l1: rgba(0, 0, 0, 0.05) !important;
+  --dsw-alias-border-l2: rgba(0, 0, 0, 0.08) !important;
+  --dsw-alias-border-l3: rgba(0, 0, 0, 0.12) !important;
+  --dsw-alias-border-l4: rgba(0, 0, 0, 0.16) !important;
+  --dsw-elevation-stroke-color: rgba(0, 0, 0, 0.08) !important;
+
+  /* 高对比排版文字色彩 */
+  --dsw-alias-label-primary: #18181b !important;
+  --dsw-alias-label-secondary: #52525b !important;
+  --dsw-alias-label-tertiary: #71717a !important;
+  --dsw-alias-label-caption: #a1a1aa !important;
+
+  /* 品牌色与交互按钮 */
+  --dsw-alias-brand-primary: #18181b !important;
+  --dsw-alias-brand-text: #18181b !important;
+  --dsw-alias-button-primary-fill: #18181b !important;
+  --dsw-alias-button-primary-hover: #27272a !important;
+  --dsw-alias-button-contrast-fill: #18181b !important;
+  --dsw-alias-link: #0969da !important;
+  --dsw-alias-state-business-primary: #0969da !important;
+  --dsw-focus-ring-color: #0969da !important;
+
+  /* 悬停与激活 */
+  --dsw-alias-interactive-bg-hover: rgba(0, 0, 0, 0.04) !important;
+  --dsw-alias-interactive-bg-active: rgba(0, 0, 0, 0.08) !important;
+  --dsw-alias-interactive-bg-hover-solid: #f4f4f5 !important;
+  --dsw-specific-sidebar-nav-item-hover: #f0f0f2 !important;
+  --dsw-specific-sidebar-nav-item-active: #e4e4e7 !important;
+
+  /* 代码块浅色高亮（GitHub / VS Code Light 质感） */
+  --dsw-alias-markdown-code-block: #f6f8fa !important;
+  --dsw-alias-markdown-code-block-banner: #eff1f3 !important;
+  --dsw-alias-markdown-inline-code: #eff1f3 !important;
+  --shiki-background: #f6f8fa !important;
+  --shiki-foreground: #24292e !important;
+
+  /* 全局字族变量强制绑定 */
+  --dsh-font-family-text: var(--cursor-yanti-font) !important;
+  --dsw-font-family: var(--cursor-yanti-font) !important;
+  --dsh-font-family-code: var(--cursor-code-font) !important;
+  --ds-font-family-code: var(--cursor-code-font) !important;
+}
+
+/* ==========================================================================
+   2. 颜体书法加粗与力道展现（加粗、墨韵、大气字体）
+   ========================================================================== */
+body,
+[data-conversation-view],
+[data-turn-role],
+[class*="chat_"],
+[class*="transcript_"],
+[class*="bubble"],
+[class*="message"],
+[class*="content"],
+[class*="AssistantMarkdown"],
+[class*="MessageItem"],
+.markdown-body,
+[class*="markdown_"],
+textarea,
+input {
+  font-family: var(--cursor-yanti-font) !important;
+  font-weight: 700 !important; /* 强制加粗！展现颜体雄健、浑厚、筋骨刚劲的书法特色 */
+  font-size: 16px !important;   /* 提升字号，确保大字书法气势清晰可见 */
+  line-height: 1.8 !important;
+  letter-spacing: 0.025em !important;
+  text-shadow: 0 0 0.35px rgba(24, 24, 27, 0.45) !important; /* 浓墨微晕，增强书法笔画厚重感 */
+  -webkit-font-smoothing: antialiased !important;
+}
+
+/* 标题样式增强（保持颜体厚重感） */
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+  font-family: var(--cursor-yanti-font) !important;
+  font-weight: 800 !important;
+  color: #18181b !important;
+  letter-spacing: 0.03em !important;
+}
+
+.markdown-body h1 {
+  font-size: 21px !important;
+  border-bottom: 1px solid #eaeaea !important;
+  padding-bottom: 6px !important;
+  margin: 18px 0 12px !important;
+}
+
+.markdown-body h2 {
+  font-size: 19px !important;
+  margin: 16px 0 10px !important;
+}
+
+.markdown-body h3 {
+  font-size: 17px !important;
+  margin: 14px 0 8px !important;
+}
+
+/* ==========================================================================
+   3. Cursor Agent 聊天流 UI 交互重塑（彻底告别即时通讯泡泡感）
+   ========================================================================== */
+/* 用户输入行：Cursor Agent 中用户输入是通栏/自然宽度卡片，而非挤在最右侧的手机气泡 */
+[class*="AkCqbG_userRow"],
+[class*="userRow"],
+[data-turn-role="user"] {
+  align-items: stretch !important; /* 彻底移除 flex-end 靠右，呈现 IDE Agent 卡片式通栏布局 */
+  width: 100% !important;
+  margin: 14px 0 10px !important;
+}
+
+/* User 角色前置标签：增强 Cursor Agent 的角色认知感 */
+[class*="AkCqbG_userRow"]::before,
+[data-turn-role="user"]::before {
+  content: "User";
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #71717a !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  font-family: var(--cursor-code-font) !important;
+  margin-bottom: 4px !important;
+  display: inline-block !important;
+}
+
+[class*="AkCqbG_userStack"],
+[class*="userStack"] {
+  max-width: 100% !important;
+  width: 100% !important;
+  align-items: stretch !important;
+}
+
+/* 用户输入卡片：Cursor 标志性的微灰边框卡片 */
+[class*="AkCqbG_bubble"],
+[data-turn-role="user"] [class*="bubble"],
+[class*="userMessage"],
+[class*="UserBubble"] {
+  background-color: #f4f4f5 !important;
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 10px !important; /* 放弃 20px 大胶囊，使用 Cursor 经典的 10px IDE 规整圆角 */
+  padding: 12px 18px !important;
+  color: #18181b !important;
+  font-weight: 700 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Assistant 回答区：无缝白底与清晰层次 */
+[data-turn-role="assistant"],
+[class*="assistantRow"] {
+  color: #18181b !important;
+  width: 100% !important;
+  margin-top: 10px !important;
+}
+
+/* Agent 角色前置标签 */
+[data-turn-role="assistant"]::before {
+  content: "Agent";
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #0969da !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  font-family: var(--cursor-code-font) !important;
+  margin-bottom: 6px !important;
+  display: inline-block !important;
+}
+
+/* 思考过程（Thinking / Reasoning）：Cursor Agent「米黄色」思考卡片
+   Cursor 的思考区是暖调的米黄/杏色块：奶杏底色、米色描边、金棕侧条 */
+[class*="ijfCxa_root"],
+[class*="ReasoningRow"],
+[data-turn-reasoning] {
+  background-color: #faf6ec !important;      /* 米黄奶杏底 */
+  border: 1px solid #d9c9a3 !important;      /* 米色/沙色描边（加深） */
+  border-left: 3px solid #c9a227 !important; /* 金棕侧条，Cursor 思考区标志性暖色 */
+  border-radius: 6px !important;
+  padding: 8px 14px !important;
+  margin: 10px 0 !important;
+  color: #6b5b3e !important;                  /* 深褐文案，与米黄底呼应 */
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 1px 2px rgba(139, 109, 54, 0.06) !important;
+}
+
+/* 思考区内部文字保持可读的暖灰褐 */
+[class*="ijfCxa_root"] *,
+[class*="ReasoningRow"] * {
+  color: #6b5b3e !important;
+  border-color: #d9c9a3 !important;
+}
+
+/* 工具调用与执行节点（Turn Process & Tool Calls）：Cursor Agent 药丸/卡片式操作指示 */
+[class*="gTO55a_root"],
+[class*="CuF05a_root"],
+[class*="TurnProcessNodeView"],
+[class*="TurnTriggerNodeView"],
+[data-turn-process] {
+  background-color: #f8f9fa !important;
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 8px !important;
+  padding: 8px 14px !important;
+  margin: 8px 0 !important;
+  color: #27272a !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  transition: all 0.15s ease !important;
+}
+
+[class*="gTO55a_root"]:hover,
+[class*="CuF05a_root"]:hover {
+  background-color: #f1f2f4 !important;
+  border-color: #d4d4d8 !important;
+}
+
+/* 工具与文件路径徽章（Monospace Badge） */
+[class*="badge"],
+[class*="chip"],
+[class*="ReferenceChip"],
+[data-file-ref] {
+  background-color: #eff1f3 !important;
+  color: #0969da !important;
+  border: 1px solid #e1e4e8 !important;
+  border-radius: 4px !important;
+  padding: 2px 7px !important;
+  font-family: var(--cursor-code-font) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: normal !important;
+}
+
+/* ==========================================================================
+   4. 代码块与等宽区域保护（保持专业编程编辑器质感）
+   ========================================================================== */
+code,
+pre,
+pre code,
+kbd,
+samp,
+[class*="code_"],
+[class*="terminal_"],
+[class*="CodeBlock_"],
+[class*="gTO55a_durationNumber"] {
+  font-family: var(--cursor-code-font) !important;
+  font-weight: 450 !important; /* 代码严格保持等宽清晰，不使用书法体 */
+  letter-spacing: normal !important;
+  text-shadow: none !important;
+  font-size: 13px !important;
+}
+
+pre,
+[class*="codeBlock"],
+[class*="CodeBlock"],
+div[data-code-block] {
+  background-color: #f6f8fa !important;
+  border: 1px solid #d0d7de !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+  margin: 12px 0 !important;
+}
+
+/* 行内代码标签 */
+code:not(pre code) {
+  background-color: #eff1f3 !important;
+  border: 1px solid #e1e4e8 !important;
+  border-radius: 4px !important;
+  padding: 2px 5px !important;
+  color: #0969da !important;
+  font-size: 0.88em !important;
+  font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   5. Cursor Agent 底部 Composer 输入底栏
+   ========================================================================== */
+/* 输入框外壳卡片：Cursor 浮动卡片 */
+[class*="JZLxKW_card"],
+[class*="InputBar_card"],
+[data-composer-card] {
+  border: 1px solid #e4e4e7 !important;
+  border-radius: 12px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04) !important;
+  transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+
+[class*="JZLxKW_card"]:focus-within,
+[class*="InputBar_card"]:focus-within {
+  border-color: #0969da !important;
+  box-shadow: 0 8px 30px -4px rgba(9, 105, 218, 0.12), 0 0 0 1.5px #0969da !important;
+}
+
+/* 输入框内部文本 */
+[class*="JZLxKW_input"],
+[class*="InputBar_input"],
+[data-composer-input] {
+  font-family: var(--cursor-yanti-font) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  color: #18181b !important;
+  caret-color: #0969da !important;
+}
+
+/* 发送按钮：Cursor 标志性的黑色极简实心小圆球 */
+[class*="JZLxKW_primary"],
+[class*="InputBar_primary"],
+[data-composer-send] {
+  background-color: #18181b !important;
+  color: #ffffff !important;
+  border-radius: 999px !important;
+  width: 32px !important;
+  height: 32px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.12s ease !important;
+}
+
+[class*="JZLxKW_primary"]:hover:not(:disabled),
+[class*="InputBar_primary"]:hover:not(:disabled) {
+  background-color: #27272a !important;
+  transform: scale(1.05) !important;
+}
+
+/* 底栏功能按钮与下拉选择器 */
+[class*="JZLxKW_select"],
+[class*="JZLxKW_add"],
+[class*="InputBar_select"],
+[class*="InputBar_add"] {
+  border-radius: 6px !important;
+  background-color: #f4f4f5 !important;
+  color: #27272a !important;
+  border: 1px solid #e4e4e7 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   6. 侧边栏与滚动条细化
+   ========================================================================== */
+/* 现代极细滚动条 */
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d4d8 !important;
+  border-radius: 999px !important;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa !important;
+}
+
+/* ==========================================================================
+   7. TODO List → Cursor「多选清单」风格 + 滚动时始终固定
+   ========================================================================== */
+/*
+   TodoPanel 真实 DOM 结构（dsh-client-ui-conversation）：
+   <section data-testid="todo-panel">            ← 面板根节点
+     <div>                                        ← 面板体
+       <button aria-expanded="..."> 标题/进度/展开箭头 </button>
+       <ul>                                       ← 清单（默认折叠，由注入脚本自动展开）
+         <li data-status="pending|in_progress|completed">
+           <span (glyph)>●状态点</span>
+           <span (content)>任务内容</span>
+         </li>
+       </ul>
+     </div>
+   </section>
+*/
+
+/* 7.1 面板本体：米黄清单卡片，水平居中于聊天内容列，并固定在作曲家席位顶部 */
+[data-testid="todo-panel"] {
+  position: sticky !important;
+  bottom: 0 !important;                 /* 贴住输入区上方，滚动对话时不动 */
+  z-index: 40 !important;
+  width: min(calc(100% - 16px), var(--dsh-chat-content-width, 860px)) !important; /* 与聊天内容列同宽（跟随 860px 内容宽度） */
+  max-width: calc(100% - 16px) !important;
+  margin: 8px auto !important;          /* 左右 auto → 水平居中 */
+  align-self: center !important;        /* flex 父容器下兜底居中 */
+  background: #fdfaf1 !important;       /* 米黄奶白卡片底 */
+  border: 1px solid #d9c9a3 !important; /* 米色描边（加深） */
+  border-radius: 12px !important;
+  box-shadow: 0 6px 20px -6px rgba(139, 109, 54, 0.25) !important;
+  overflow: hidden !important;
+  font-family: var(--cursor-yanti-font) !important;
+}
+
+/* 面板头部（任务/进度行）：暖调深褐 */
+[data-testid="todo-panel"] [aria-label] button,
+[data-testid="todo-panel"] button {
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid #e6d8b5 !important; /* 头部下沿（加深同色系） */
+  color: #7a5c22 !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.03em !important;
+  padding: 9px 14px !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+}
+
+[data-testid="todo-panel"] button:hover {
+  background-color: rgba(201, 162, 39, 0.07) !important;
+}
+
+/* 进度文案风格 */
+[data-testid="todo-panel"] [class*="progress"] {
+  font-family: var(--cursor-code-font) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #a3853c !important;
+  margin-left: auto !important;
+}
+
+/* 7.2 清单自身：可滚动，最长 36vh，不把输入框顶出屏幕 */
+[data-testid="todo-panel"] ul {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 6px 10px 10px !important;
+  max-height: 36vh !important;
+  overflow-y: auto !important;
+  display: block !important;
+}
+
+/* 清单行：多选风格，每行一个圆形复选框 */
+[data-testid="todo-panel"] li {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  padding: 6px 4px !important;
+  border-radius: 6px !important;
+  transition: background 0.12s !important;
+}
+
+[data-testid="todo-panel"] li:hover {
+  background-color: rgba(201, 162, 39, 0.06) !important;
+}
+
+/* 圆形复选框槽位（glyph 是每行第一个 span）—— 100% 正圆 */
+[data-testid="todo-panel"] li > span:first-child {
+  width: 17px !important;
+  height: 17px !important;
+  min-width: 17px !important;
+  max-width: 17px !important;
+  border-radius: 50% !important; /* 100% 正圆 */
+  border: 1.6px solid #b9b3a4 !important; /* 待办：空圈 */
+  background: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 2px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  flex: 0 0 auto !important;   /* 不被文字弹性挤压，保持正方形 */
+  aspect-ratio: 1 / 1 !important; /* 宽高恒等 → 100% 圆形 */
+}
+
+/* 隐藏默认状态点内部元素（应用原生 StateDot 等），避免非圆形图标泄漏 */
+[data-testid="todo-panel"] li > span:first-child > * {
+  display: none !important;
+  border-radius: 50% !important;
+}
+
+/* 进行中：琥珀色描边 + 中心琥珀圆点 */
+[data-testid="todo-panel"] li[data-status="in_progress"] > span:first-child {
+  border-color: #e0a83c !important;
+  background: #fff8e6 !important;
+}
+[data-testid="todo-panel"] li[data-status="in_progress"] > span:first-child::after {
+  content: "" !important;
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: #e0a83c !important;
+}
+
+/* 已完成：绿色实心圆 + 白色 SVG 对勾（矢量渲染，不受字体影响） */
+[data-testid="todo-panel"] li[data-status="completed"] > span:first-child {
+  border-color: #2da44e !important;
+  background-color: #2da44e !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23ffffff' d='M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0l-3.25-3.25a.75.75 0 1 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'/%3E%3C/svg%3E") !important;
+  background-size: 11px 11px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+[data-testid="todo-panel"] li[data-status="completed"] > span:first-child::after {
+  content: none !important; /* 关闭旧的文字对勾，改用上面的 SVG */
+}
+
+/* 已完成任务文字：暖褐 + 划线 */
+[data-testid="todo-panel"] li[data-status="completed"] > span:last-child {
+  color: #9a8f73 !important;
+  text-decoration: line-through !important;
+  text-decoration-color: rgba(154, 143, 115, 0.7) !important;
+}
+
+/* 待办文字 */
+[data-testid="todo-panel"] li > span:last-child {
+  color: #5c4f2e !important;
+  font-size: 17.5px !important; /* 13.5px × 1.3 加大 1.3 倍 */
+  font-weight: 700 !important;
+  line-height: 1.55 !important;
+  flex: 1 !important;
+}
+
+/* 7.3 空态提示 */
+[data-testid="todo-panel"] [class*="empty"] {
+  color: #a3853c !important;
+  font-size: 12.5px !important;
+  padding: 8px 12px !important;
+}

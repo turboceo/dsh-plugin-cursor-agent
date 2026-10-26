@@ -1,0 +1,27 @@
+{
+  "name": "dsh-plugin-cursor-agent",
+  "version": "1.0.0",
+  "description": "Cursor Agent light style and YanTi calligraphy font plugin for DeepSeek Harness",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./styles.css": "./lib/styles.css"
+  },
+  "dsh": {
+    "plugin": {
+      "id": "cursor-agent-theme",
+      "name": "Cursor Agent 亮色风格与颜体字体插件",
+      "version": "1.0.0"
+    }
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh-plugin",
+    "theme",
+    "cursor-agent",
+    "yanti"
+  ],
+  "author": "Turbo",
+  "license": "MIT"
+}
